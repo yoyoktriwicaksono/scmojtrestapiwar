@@ -15,10 +15,10 @@
 Using WAR packaging
 
 ## Continues Integration
--
+In progress
 
 ## Continues Deployment
--
+In progress
 
 ## Issues
 Please refer to Issue tab of github in this repository
