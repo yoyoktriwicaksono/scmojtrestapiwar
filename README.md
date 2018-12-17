@@ -29,14 +29,15 @@ Please refer to Issue tab of github in this repository
 ## Project
 Please refer to OJT project of project tab in this repository
 
-## SWAGGER
+## Developer Notes
+### SWAGGER
 1. Json    = http://localhost:8080/v1/swagger.json
 2. UI      = http://localhost:8080/swagger/
 
-## REST API
+### REST API
 http://localhost:8080/v1/customer?customerName=a&phoneNumber=0&email=t
 
-## JOBS
+### JOBS
 `
     <listener>
         <listener-class>org.scm.ojt.rest.jobs.SiteMapGenerator</listener-class>
