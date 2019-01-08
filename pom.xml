@@ -184,6 +184,39 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- Hibernate 4.3.6 Final -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>5.4.0.Final</version>
+            <!--<version>4.3.6.Final</version>-->
+        </dependency>
+
+        <!-- Mysql Connector -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.40</version>
+            <!--<version>5.1.21</version>-->
+        </dependency>
+
+        <!--&lt;!&ndash; JPA Data (We are going to use Repositories, Entities, Hibernate, etc...) &ndash;&gt;-->
+
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.boot</groupId>-->
+            <!--<artifactId>spring-boot-starter-data-jpa</artifactId>-->
+            <!--<version>2.1.1.RELEASE</version>-->
+            <!--&lt;!&ndash;<version>1.5.10.RELEASE</version>&ndash;&gt;-->
+        <!--</dependency>-->
+
+        <!--&lt;!&ndash; Use MySQL Connector-J &ndash;&gt;-->
+
+        <!--<dependency>-->
+            <!--<groupId>mysql</groupId>-->
+            <!--<artifactId>mysql-connector-java</artifactId>-->
+            <!--<version>8.0.13</version>-->
+        <!--</dependency>-->
+
         <!-- Swagger -->
         <!--<dependency>-->
             <!--<groupId>io.swagger.core.v3</groupId>-->
