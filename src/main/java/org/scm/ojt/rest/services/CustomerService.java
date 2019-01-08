@@ -34,7 +34,12 @@ public class CustomerService {
     }
 
     @GET
-    @ApiOperation(value="Search Customer")
+    @ApiOperation(
+            value="Search Customer",
+            notes = "Search Customer by Customer Name, Phone Number, Email",
+            response = CustomerDTO.class,
+            responseContainer = "List"
+    )
     public List<CustomerDTO> searchCustomer(
             @ApiParam(value = "Customer Name", required = true) @QueryParam("customerName") final String customerName,
             @ApiParam(value = "Phone Number", required = true) @QueryParam("phoneNumber") final String phoneNumber,
