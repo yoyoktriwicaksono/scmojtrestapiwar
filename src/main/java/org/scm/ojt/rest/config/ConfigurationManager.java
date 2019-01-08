@@ -21,6 +21,7 @@ public class ConfigurationManager {
     private AppConfigData appConfigData = null;
     private MongoConfigData mongoConfigData = null;
     private SwaggerConfigData swaggerConfigData = null;
+    private HibernateConfigData hibernateConfigData = null;
 
     private ConfigurationManager(){
         // we have to set the variable of heroku : STAGING : PRODUCTION or QA
@@ -59,6 +60,7 @@ public class ConfigurationManager {
         swaggerConfigData = configProvider.bind("swagger", SwaggerConfigData.class);
         logger.info("Load database.properties");
         mongoConfigData = configProvider.bind("mongo", MongoConfigData.class);
+        hibernateConfigData = configProvider.bind("hibernate", HibernateConfigData.class);
     }
 
     public static ConfigurationManager getInstance(){
@@ -83,5 +85,9 @@ public class ConfigurationManager {
 
     public SwaggerConfigData getSwaggerConfigData(){
         return swaggerConfigData;
+    }
+
+    public HibernateConfigData getHibernateConfigData(){
+        return hibernateConfigData;
     }
 }
