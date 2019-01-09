@@ -53,4 +53,10 @@ public class UserLogic {
         UserDTO userDTO = modelMapper.map(userRepository.findById(id), UserDTO.class);
         return userDTO;
     }
+
+    public UserDTO create(UserDTO userDTO){
+        User user = modelMapper.map(userDTO, User.class);
+        UserDTO userResult = modelMapper.map(userRepository.create(user), UserDTO.class);
+        return userResult;
+    }
 }

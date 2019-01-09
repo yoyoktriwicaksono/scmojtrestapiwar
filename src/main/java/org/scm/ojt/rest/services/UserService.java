@@ -54,4 +54,13 @@ public class UserService {
         return userLogic.findById(id);
     }
 
+    @POST
+    @ApiOperation(value="Create User", response = UserDTO.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 500, message = "Something wrong in Server")
+    })
+    public UserDTO createUser(final UserDTO userDTO){
+        return userLogic.create(userDTO);
+    }
+
 }

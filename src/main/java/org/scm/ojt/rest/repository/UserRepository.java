@@ -66,8 +66,34 @@ public class UserRepository {
                 session.getTransaction().rollback();
             }
             sqlException.printStackTrace();
+        } finally {
+            if(session != null) {
+                session.close();
+            }
         }
         return user;
     }
 
+    public User create(User newUser){
+        try {
+            // Getting Session Object From SessionFactory
+            session = sessionFactory.openSession();
+            // Getting Transaction Object From Session Object
+            session.beginTransaction();
+            Integer id = (Integer) session.save(newUser);
+            newUser.setId(id);
+            session.getTransaction().commit();
+        } catch(Exception sqlException) {
+            if(null != session.getTransaction()) {
+                LOG.info("\n.......Transaction Is Being Rolled Back.......\n");
+                session.getTransaction().rollback();
+            }
+            sqlException.printStackTrace();
+        } finally {
+            if(session != null) {
+                session.close();
+            }
+        }
+        return newUser;
+    }
 }
