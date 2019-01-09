@@ -1,10 +1,9 @@
 package org.scm.ojt.rest.services;
 
 import com.google.inject.Singleton;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.*;
 import org.scm.ojt.rest.dto.CustomerDTO;
+import org.scm.ojt.rest.dto.SupplierDTO;
 import org.scm.ojt.rest.dto.UserDTO;
 import org.scm.ojt.rest.logic.UserLogic;
 import org.slf4j.Logger;
@@ -39,6 +38,20 @@ public class UserService {
     ) {
         LOG.info("List All User");
         return userLogic.listAll();
+    }
+
+    @GET
+    @Path("{id}")
+    @ApiOperation(value="Get User", response = UserDTO.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 400, message = "Invalid ID"),
+            @ApiResponse(code = 204, message = "User Not Found"),
+            @ApiResponse(code = 500, message = "Something wrong in Server")
+    })
+    public UserDTO getById(
+            @ApiParam(value = "id", required = true) @PathParam("id") final Integer id
+    ) {
+        return userLogic.findById(id);
     }
 
 }

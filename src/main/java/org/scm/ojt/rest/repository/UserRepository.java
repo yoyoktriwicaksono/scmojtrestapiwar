@@ -51,4 +51,23 @@ public class UserRepository {
         return userList;
     }
 
+    public User findById(Integer id) {
+        User user = null;
+        try {
+            // Getting Session Object From SessionFactory
+            session = sessionFactory.openSession();
+            // Getting Transaction Object From Session Object
+            session.beginTransaction();
+
+            user = (User) session.load(User.class, id);
+        } catch(Exception sqlException) {
+            if(null != session.getTransaction()) {
+                LOG.info("\n.......Transaction Is Being Rolled Back.......\n");
+                session.getTransaction().rollback();
+            }
+            sqlException.printStackTrace();
+        }
+        return user;
+    }
+
 }
