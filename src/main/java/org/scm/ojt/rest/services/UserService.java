@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import java.util.List;
 
 /**
@@ -61,6 +62,15 @@ public class UserService {
     })
     public UserDTO createUser(final UserDTO userDTO){
         return userLogic.create(userDTO);
+    }
+
+    @DELETE
+    @Path("{id}")
+    @ApiOperation(value="Remove User")
+    public Response deleteById(
+            @ApiParam(value = "id", required = true) @PathParam("id") final Integer id
+    ){
+        return Response.ok().entity(userLogic.delete(id)).build();
     }
 
 }

@@ -59,7 +59,7 @@ public class UserRepository {
             // Getting Transaction Object From Session Object
             session.beginTransaction();
 
-            user = (User) session.load(User.class, id);
+            user = (User) session.get(User.class, id);
         } catch(Exception sqlException) {
             if(null != session.getTransaction()) {
                 LOG.info("\n.......Transaction Is Being Rolled Back.......\n");
@@ -95,5 +95,30 @@ public class UserRepository {
             }
         }
         return newUser;
+    }
+
+    public boolean delete(Integer id){
+        boolean result = false;
+        try {
+            // Getting Session Object From SessionFactory
+            session = sessionFactory.openSession();
+            // Getting Transaction Object From Session Object
+            session.beginTransaction();
+            User user = (User) session.get(User.class, id);
+            session.delete(user);
+            session.getTransaction().commit();
+            result = true;
+        } catch(Exception sqlException) {
+            if(null != session.getTransaction()) {
+                LOG.info("\n.......Transaction Is Being Rolled Back.......\n");
+                session.getTransaction().rollback();
+            }
+            sqlException.printStackTrace();
+        } finally {
+            if(session != null) {
+                session.close();
+            }
+        }
+        return result;
     }
 }
