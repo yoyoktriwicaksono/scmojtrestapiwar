@@ -67,6 +67,9 @@ public class UserService {
     @DELETE
     @Path("{id}")
     @ApiOperation(value="Remove User")
+    @ApiResponses(value = {
+            @ApiResponse(code = 500, message = "Something wrong in Server")
+    })
     public Response deleteById(
             @ApiParam(value = "id", required = true) @PathParam("id") final Integer id
     ){
