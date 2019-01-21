@@ -22,6 +22,7 @@ public class ConfigurationManager {
     private MongoConfigData mongoConfigData = null;
     private SwaggerConfigData swaggerConfigData = null;
     private HibernateConfigData hibernateConfigData = null;
+    private JobConfigData jobConfigData = null;
 
     private ConfigurationManager(){
         // we have to set the variable of heroku : STAGING : PRODUCTION or QA
@@ -29,7 +30,8 @@ public class ConfigurationManager {
         logger.info("Load Heroku environment variable =  " + environment);
         ConfigFilesProvider configFilesProvider = () -> Arrays.asList(
                 Paths.get("app.properties"),
-                Paths.get("database.properties")
+                Paths.get("database.properties"),
+                Paths.get("job.properties")
         );
 
         if (environment != null) {
@@ -37,12 +39,14 @@ public class ConfigurationManager {
             if (environment.equalsIgnoreCase("PRODUCTION")) {
                 configFilesProvider = () -> Arrays.asList(
                         Paths.get("app.production.properties"),
-                        Paths.get("database.production.properties")
+                        Paths.get("database.production.properties"),
+                        Paths.get("job.production.properties")
                 );
             } else if(environment.equalsIgnoreCase("QA")) {
                 configFilesProvider = () -> Arrays.asList(
                         Paths.get("app.qa.properties"),
-                        Paths.get("database.qa.properties")
+                        Paths.get("database.qa.properties"),
+                        Paths.get("job.qa.properties")
                 );
             }
         }
@@ -60,7 +64,18 @@ public class ConfigurationManager {
         swaggerConfigData = configProvider.bind("swagger", SwaggerConfigData.class);
         logger.info("Load database.properties");
         mongoConfigData = configProvider.bind("mongo", MongoConfigData.class);
+        if (!mongoConfigData.enable()){
+            logger.info("Mongo is DISABLE");
+        }
         hibernateConfigData = configProvider.bind("hibernate", HibernateConfigData.class);
+        if (!hibernateConfigData.enable()){
+            logger.info("Hibernate is DISABLE");
+        }
+        logger.info("Load job.properties");
+        jobConfigData = configProvider.bind("job", JobConfigData.class);
+        if (!jobConfigData.enable()){
+            logger.info("Job is DISABLE");
+        }
     }
 
     public static ConfigurationManager getInstance(){
@@ -89,5 +104,9 @@ public class ConfigurationManager {
 
     public HibernateConfigData getHibernateConfigData(){
         return hibernateConfigData;
+    }
+
+    public JobConfigData getJobConfigData(){
+        return jobConfigData;
     }
 }
