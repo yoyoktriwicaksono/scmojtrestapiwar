@@ -63,4 +63,10 @@ public class UserLogic {
     public boolean delete(Integer id){
         return userRepository.delete(id);
     }
+
+    public UserDTO update(Integer id, UserDTO userUpdate){
+        User user = modelMapper.map(userUpdate, User.class);
+        UserDTO userResult = modelMapper.map(userRepository.update(id, user), UserDTO.class);
+        return userResult;
+    }
 }

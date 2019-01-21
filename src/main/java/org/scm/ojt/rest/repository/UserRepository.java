@@ -121,4 +121,42 @@ public class UserRepository {
         }
         return result;
     }
+
+    //get author
+    //Query q=s.createQuery("FROM Authors Where Name=:n");
+    //q.setParameter("n", "Tolkien");
+    //Authors Auth=(Authors) q.list().get(0);
+
+    public User update(Integer id, User userUpdate) {
+        User user = null;
+
+        if (!id.equals(null)){
+            try {
+                // Getting Session Object From SessionFactory
+                session = sessionFactory.openSession();
+                // Getting Transaction Object From Session Object
+                session.beginTransaction();
+                User userOld = (User) session.get(User.class, id);
+                if (!userUpdate.getName().isEmpty()){
+                    userOld.setName(userUpdate.getName());
+                }
+                if (!userUpdate.getEmail().isEmpty()){
+                    userOld.setEmail(userUpdate.getEmail());
+                }
+                session.getTransaction().commit();
+            } catch(Exception sqlException) {
+                if(null != session.getTransaction()) {
+                    LOG.info("\n.......Transaction Is Being Rolled Back.......\n");
+                    session.getTransaction().rollback();
+                }
+                sqlException.printStackTrace();
+            } finally {
+                if(session != null) {
+                    session.close();
+                }
+            }
+            user = findById(id);
+        }
+        return user;
+    }
 }

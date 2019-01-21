@@ -76,4 +76,18 @@ public class UserService {
         return Response.ok().entity(userLogic.delete(id)).build();
     }
 
+    @PUT
+    @Path("{id}")
+    @ApiOperation(value="Update User")
+    @ApiResponses(value = {
+            @ApiResponse(code = 400, message = "Invalid ID"),
+            @ApiResponse(code = 204, message = "User Not Found"),
+            @ApiResponse(code = 500, message = "Something wrong in Server")
+    })
+    public UserDTO updateUser(
+            @ApiParam(value = "id", required = true) @PathParam("id") Integer id,
+            final UserDTO userDTO){
+        return userLogic.update(id, userDTO);
+    }
+
 }
