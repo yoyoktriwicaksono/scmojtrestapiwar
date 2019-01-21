@@ -122,10 +122,18 @@ public class UserRepository {
         return result;
     }
 
-    //get author
+    //GET author
     //Query q=s.createQuery("FROM Authors Where Name=:n");
     //q.setParameter("n", "Tolkien");
     //Authors Auth=(Authors) q.list().get(0);
+
+
+    // DELETE ALL
+    //sessionObj.beginTransaction();
+    //Query queryObj = sessionObj.createQuery("DELETE FROM Student");
+    //queryObj.executeUpdate();
+    // Committing The Transactions To The Database
+    //sessionObj.getTransaction().commit();
 
     public User update(Integer id, User userUpdate) {
         User user = null;
