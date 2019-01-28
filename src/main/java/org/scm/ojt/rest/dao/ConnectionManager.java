@@ -92,7 +92,9 @@ public class ConnectionManager {
             configObj.setProperty("hibernate.connection.driver_class", hibernateConfigData.driverClass());
             configObj.setProperty("hibernate.connection.url", hibernateConfigData.url());
             configObj.setProperty("hibernate.connection.username", hibernateConfigData.username());
-            configObj.setProperty("hibernate.connection.password", hibernateConfigData.password());
+            if (!hibernateConfigData.password().isEmpty()){
+                configObj.setProperty("hibernate.connection.password", hibernateConfigData.password());
+            }
             configObj.setProperty("hibernate.show_sql", hibernateConfigData.showSQL());
             configObj.setProperty("hibernate.hbm2ddl.auto", hibernateConfigData.hbm2ddl());
             configObj.setProperty("hibernate.connection.pool_size", hibernateConfigData.poolSize());
