@@ -1,11 +1,15 @@
 package org.scm.ojt.rest.filter;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.IOException;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletResponse;
 
 public class CrossOriginResourceSharingFilter implements javax.servlet.Filter {
+    private static final Logger LOG = LoggerFactory.getLogger(CrossOriginResourceSharingFilter.class);
 
     @Override
     public void doFilter(final ServletRequest request, final ServletResponse response, final FilterChain chain) throws IOException, ServletException {
