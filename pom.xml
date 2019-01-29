@@ -242,6 +242,20 @@
             <!--<version>${version.jjwt}</version>-->
         <!--</dependency>-->
 
+        <!-- THIS MAKES CRASH WITH SWAGGER -->
+        <!--<dependency>-->
+            <!--<groupId>com.auth0</groupId>-->
+            <!--<artifactId>java-jwt</artifactId>-->
+            <!--<version>3.6.0</version>-->
+        <!--</dependency>-->
+
+        <!-- WORKS -->
+        <dependency>
+            <groupId>org.bitbucket.b_c</groupId>
+            <artifactId>jose4j</artifactId>
+            <version>0.6.5</version>
+        </dependency>
+
     </dependencies>
 
     <build>
