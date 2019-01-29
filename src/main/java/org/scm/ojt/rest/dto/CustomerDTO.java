@@ -5,12 +5,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * Created by Yoyok_T on 18/10/2018.
  */
 @ApiModel(description = "Customer")
 @Data
+@EqualsAndHashCode(callSuper = false)
 public class CustomerDTO extends BaseDTO {
     @ApiModelProperty(dataType = "java.lang.String" ,value = "name", example = "Yoyok Tri Wicaksono")
     private String name;

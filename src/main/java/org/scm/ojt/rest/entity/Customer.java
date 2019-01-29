@@ -1,6 +1,7 @@
 package org.scm.ojt.rest.entity;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.mongodb.morphia.annotations.*;
 
 /**
@@ -11,6 +12,7 @@ import org.mongodb.morphia.annotations.*;
         @Index(value = "phoneNumber", fields = @Field("phoneNumber"))
 )
 @Data
+@EqualsAndHashCode(callSuper = false)
 public class Customer extends BaseEntity {
     private String name;
 

@@ -14,6 +14,7 @@ import org.mongodb.morphia.annotations.*;
         @Index(value = "SupplierID", fields = @Field("SupplierID"))
 )
 @Data
+@EqualsAndHashCode(callSuper = false)
 public class Supplier extends BaseEntity {
 
     @Property("supplierID")
