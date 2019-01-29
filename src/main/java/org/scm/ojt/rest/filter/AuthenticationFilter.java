@@ -37,7 +37,11 @@ public class AuthenticationFilter implements javax.ws.rs.container.ContainerRequ
     public void filter( ContainerRequestContext requestContext ){
         Method method = resourceInfo.getResourceMethod();
 
-        if( !method.isAnnotationPresent( PermitAll.class ) ){
+        Boolean isSwagger = false;
+        if (method.getName().equalsIgnoreCase("getListing") && method.getDeclaringClass().getName().equalsIgnoreCase("io.swagger.jaxrs.listing.ApiListingResource")){
+            isSwagger = true;
+        }
+        if( !method.isAnnotationPresent( PermitAll.class ) && !isSwagger ){
             requestContext.abortWith(
                     ResponseBuilder.createResponse( Response.Status.UNAUTHORIZED, "ACCESS_DENIED" )
             );
