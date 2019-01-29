@@ -58,7 +58,8 @@ public class UserService {
     }
 
     @POST
-    @ApiOperation(value="Create User", response = UserDTO.class)
+    @PermitAll
+    @ApiOperation(value="Create User", response = UserDTO.class, authorizations = {@Authorization(value="basicAuth")})
     @ApiResponses(value = {
             @ApiResponse(code = 500, message = "Something wrong in Server")
     })

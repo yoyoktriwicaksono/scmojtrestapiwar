@@ -27,7 +27,10 @@ public class ApiModule extends ServletModule {
         bind(CrossOriginResourceSharingFilter.class).asEagerSingleton();
 
         initializeApplicationServlet();
-        initializeSwaggerBootstrap(ConfigurationManager.getInstance().getSwaggerConfigData());
+        SwaggerConfigData swaggerConfig = ConfigurationManager.getInstance().getSwaggerConfigData();
+        if (swaggerConfig.enable()){
+            initializeSwaggerBootstrap(swaggerConfig);
+        }
 
         // CORS Filter
         filter("/*").through(CrossOriginResourceSharingFilter.class);

@@ -11,6 +11,8 @@ import org.jvnet.hk2.guice.bridge.api.GuiceBridge;
 import org.jvnet.hk2.guice.bridge.api.GuiceIntoHK2Bridge;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
+import org.scm.ojt.rest.config.ConfigurationManager;
+import org.scm.ojt.rest.config.SwaggerConfigData;
 import org.scm.ojt.rest.filter.AuthenticationFilter;
 import org.scm.ojt.rest.utils.AppConstants;
 
@@ -34,7 +36,10 @@ public class ApiApplication extends ResourceConfig {
 
         packages(AppConstants.SERVICEPACKAGE);
         register(AuthenticationFilter.class);
-        register(io.swagger.jaxrs.listing.ApiListingResource.class);
-        register(io.swagger.jaxrs.listing.SwaggerSerializers.class);
+        SwaggerConfigData swaggerConfig = ConfigurationManager.getInstance().getSwaggerConfigData();
+        if (swaggerConfig.enable()){
+            register(io.swagger.jaxrs.listing.ApiListingResource.class);
+            register(io.swagger.jaxrs.listing.SwaggerSerializers.class);
+        }
     }
 }
