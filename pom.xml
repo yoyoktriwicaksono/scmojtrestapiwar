@@ -235,11 +235,12 @@
         <!--</dependency>-->
         <!-- End Swagger -->
 
-        <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt</artifactId>
-            <version>${version.jjwt}</version>
-        </dependency>
+        <!-- THIS MAKES CRASH WITH SWAGGER -->
+        <!--<dependency>-->
+            <!--<groupId>io.jsonwebtoken</groupId>-->
+            <!--<artifactId>jjwt</artifactId>-->
+            <!--<version>${version.jjwt}</version>-->
+        <!--</dependency>-->
 
     </dependencies>
 
