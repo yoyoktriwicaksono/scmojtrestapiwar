@@ -250,10 +250,17 @@
         <!--</dependency>-->
 
         <!-- WORKS -->
+        <!--<dependency>-->
+            <!--<groupId>org.bitbucket.b_c</groupId>-->
+            <!--<artifactId>jose4j</artifactId>-->
+            <!--<version>0.6.5</version>-->
+        <!--</dependency>-->
+
+        <!-- WORKS -->
         <dependency>
-            <groupId>org.bitbucket.b_c</groupId>
-            <artifactId>jose4j</artifactId>
-            <version>0.6.5</version>
+            <groupId>com.nimbusds</groupId>
+            <artifactId>nimbus-jose-jwt</artifactId>
+            <version>6.0</version>
         </dependency>
 
     </dependencies>
