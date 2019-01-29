@@ -36,7 +36,7 @@ public class UserService {
 
     @GET
     @PermitAll
-    @ApiOperation(value="List All User")
+    @ApiOperation(value="List All User",authorizations = {@Authorization(value="basicAuth")})
     public List<UserDTO> listAll(
     ) {
         LOG.info("List All User");

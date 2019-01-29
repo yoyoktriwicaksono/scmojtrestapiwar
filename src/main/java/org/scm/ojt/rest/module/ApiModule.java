@@ -40,6 +40,8 @@ public class ApiModule extends ServletModule {
         serve("/v1/*").with(ServletContainer.class, props);
     }
 
+    // https://stackoverflow.com/questions/43651298/adding-authorization-to-annotation-driven-swagger-json-with-jersey-2-and-spring
+
     private void initializeSwaggerBootstrap(SwaggerConfigData swaggerConfigData) {
         LOG.info("Configuring Swagger...");
         serve("").with(SwaggerBootstrap.class);
