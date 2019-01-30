@@ -11,7 +11,7 @@ import org.mongodb.morphia.annotations.Property;
 /**
  * Created by Wicaksono on 1/30/2019.
  */
-@ApiModel(description = "Customer")
+@ApiModel(description = "Subscription")
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class SubscriptionDTO extends BaseDTO {
