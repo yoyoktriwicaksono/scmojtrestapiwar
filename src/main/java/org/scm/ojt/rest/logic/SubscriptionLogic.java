@@ -4,6 +4,8 @@ import org.bson.types.ObjectId;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.mongodb.morphia.Key;
+import org.mongodb.morphia.query.Query;
+import org.mongodb.morphia.query.QueryResults;
 import org.scm.ojt.rest.dao.ConnectionManager;
 import org.scm.ojt.rest.dao.CustomerDAO;
 import org.scm.ojt.rest.dao.SubscriptionDAO;
@@ -53,6 +55,20 @@ public class SubscriptionLogic {
             }
         }
         return null;
+    }
+
+    public SubscriptionDTO getSubscriptionByEmail(String email){
+        Query<Subscription> query = this.connectionManager.getDatastore().createQuery(Subscription.class);
+        query.and(
+                query.criteria("email").contains(email)
+        );
+        Subscription retrievedSubscription =  subscriptionDAO.findOne(query);
+        if (retrievedSubscription != null) {
+            SubscriptionDTO subscriptionDTO = modelMapper.map(retrievedSubscription, SubscriptionDTO.class);
+            return subscriptionDTO    ;
+        } else {
+            return null;
+        }
     }
 
 }

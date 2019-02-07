@@ -21,4 +21,10 @@ public class AppConstants {
         public static final String ACCESS_DENIED = "Service is secret";
         public static final String ACCESS_FORBIDDEN = "Access forbidden!";
     }
+
+    public class Role {
+        public static final String ROLE_ADMIN = "admin";
+        public static final String ROLE_USER = "user";
+        public static final String ROLE_GUEST = "guest";
+    }
 }

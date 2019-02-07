@@ -22,4 +22,10 @@ public class Subscription extends BaseEntity {
 
     @Property("password")
     private String password;
+
+    @Property("token")
+    private String token;
+
+    @Property("role")
+    private String role;
 }
