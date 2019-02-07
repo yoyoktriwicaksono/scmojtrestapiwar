@@ -34,7 +34,7 @@ public class ApiApplication extends ResourceConfig {
             }
         });
 
-        packages(AppConstants.SERVICEPACKAGE);
+        packages(AppConstants.Jersey.SERVICEPACKAGE);
         register(AuthenticationFilter.class);
         SwaggerConfigData swaggerConfig = ConfigurationManager.getInstance().getSwaggerConfigData();
         if (swaggerConfig.enable()){

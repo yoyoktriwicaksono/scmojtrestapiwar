@@ -38,8 +38,8 @@ public class ApiModule extends ServletModule {
 
     private void initializeApplicationServlet() {
         final Map<String, String> props = new HashMap<>();
-        props.put(AppConstants.JAVAXRS, ApiApplication.class.getName());
-        props.put(AppConstants.JERSEYCONFIG, Boolean.TRUE.toString());
+        props.put(AppConstants.Jersey.JAVAXRS, ApiApplication.class.getName());
+        props.put(AppConstants.Jersey.JERSEYCONFIG, Boolean.TRUE.toString());
         serve("/v1/*").with(ServletContainer.class, props);
     }
 
@@ -64,7 +64,7 @@ public class ApiModule extends ServletModule {
             beanConfig.setHost(ConfigurationManager.getInstance().getAppConfigData().host());
         }
         beanConfig.setBasePath("/v1");
-        beanConfig.setResourcePackage(AppConstants.SERVICEPACKAGE);
+        beanConfig.setResourcePackage(AppConstants.Jersey.SERVICEPACKAGE);
         beanConfig.setScan(true);
     }
 }

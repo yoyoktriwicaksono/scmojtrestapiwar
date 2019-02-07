@@ -1,10 +1,14 @@
 package org.scm.ojt.rest.filter;
 
+import org.jose4j.jwt.consumer.InvalidJwtException;
+import org.scm.ojt.rest.security.TokenSecurity;
+import org.scm.ojt.rest.utils.AppConstants;
 import org.scm.ojt.rest.utils.ResponseBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.Priority;
+import javax.annotation.security.DenyAll;
 import javax.annotation.security.PermitAll;
 import javax.servlet.ServletException;
 import javax.ws.rs.Priorities;
@@ -29,7 +33,7 @@ public class AuthenticationFilter implements javax.ws.rs.container.ContainerRequ
     @Context
     private ResourceInfo resourceInfo;
 
-    public static final String HEADER_PROPERTY_ID = "id";
+    //public static final String HEADER_PROPERTY_ID = "id";
 
     // https://github.com/maltesander/rest-jersey2-json-jwt-authentication/blob/master/src/main/java/com/tutorialacademy/rest/filter/AuthenticationFilter.java
 
@@ -41,19 +45,54 @@ public class AuthenticationFilter implements javax.ws.rs.container.ContainerRequ
         if (method.getName().equalsIgnoreCase("getListing") && method.getDeclaringClass().getName().equalsIgnoreCase("io.swagger.jaxrs.listing.ApiListingResource")){
             isSwagger = true;
         }
+        // Allow it for swagger
         if( !method.isAnnotationPresent( PermitAll.class ) && !isSwagger ){
+            // if it set to denyall, the it is secret, but why we need it ?
+            if( method.isAnnotationPresent( DenyAll.class ) )
+            {
+                requestContext.abortWith(
+                        ResponseBuilder.createResponse( Response.Status.FORBIDDEN, AppConstants.Authentication.ACCESS_FORBIDDEN )
+                );
+                return;
+            }
+
             requestContext.abortWith(
                     ResponseBuilder.createResponse( Response.Status.UNAUTHORIZED, "ACCESS_DENIED" )
             );
             return;
         }
 
-        // get request headers to extract jwt token
+        // get token from header
         final MultivaluedMap<String, String> headers = requestContext.getHeaders();
+        final List<String> authProperty = headers.get( AppConstants.Authentication.AUTHORIZATION_PROPERTY );
+
+        // block request if token is not provided
+        if( authProperty == null || authProperty.isEmpty() )
+        {
+            LOG.warn("No token provided!");
+            requestContext.abortWith(
+                    ResponseBuilder.createResponse( Response.Status.UNAUTHORIZED, AppConstants.Authentication.ACCESS_DENIED )
+            );
+            return;
+        }
+
+        String id = null ;
+        String jwt = authProperty.get(0);
+
+        // Decode it, block if invalid
+        try {
+            id = TokenSecurity.validateJwtToken( jwt );
+        } catch ( InvalidJwtException e ) {
+            LOG.warn("Invalid token provided!");
+            requestContext.abortWith(
+                    ResponseBuilder.createResponse( Response.Status.UNAUTHORIZED, AppConstants.Authentication.ACCESS_INVALID_TOKEN )
+            );
+            return;
+        }
 
         // set header param email for user identification in rest service - do not decode jwt twice in rest services
         List<String> idList = new ArrayList<String>();
         idList.add( "tokenJWT" );
-        headers.put( HEADER_PROPERTY_ID, idList );
+        headers.put(AppConstants.Authentication.HEADER_PROPERTY_ID, idList );
     }
 }
