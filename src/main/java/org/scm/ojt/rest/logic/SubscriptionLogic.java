@@ -6,6 +6,8 @@ import org.modelmapper.convention.MatchingStrategies;
 import org.mongodb.morphia.Key;
 import org.mongodb.morphia.query.Query;
 import org.mongodb.morphia.query.QueryResults;
+import org.mongodb.morphia.query.UpdateOperations;
+import org.mongodb.morphia.query.UpdateResults;
 import org.scm.ojt.rest.dao.ConnectionManager;
 import org.scm.ojt.rest.dao.CustomerDAO;
 import org.scm.ojt.rest.dao.SubscriptionDAO;
@@ -71,4 +73,26 @@ public class SubscriptionLogic {
         }
     }
 
+    public SubscriptionDTO updateToken(String id, String token){
+        ObjectId oid = subscriptionDAO.getObjectId(id);
+        if (oid != null) {
+            Subscription subscription = subscriptionDAO.get(oid);
+            if (subscription != null) {
+                if (token != null || !token.isEmpty()){
+                    Query<Subscription> query = connectionManager.getDatastore().createQuery(Subscription.class);
+                    query.field("_id").equal(oid);
+                    UpdateOperations<Subscription> updateOperations = connectionManager.getDatastore().createUpdateOperations(Subscription.class);
+                    updateOperations.set("token",token);
+                    UpdateResults updateResults = subscriptionDAO.update(query,updateOperations);
+                    LOG.info(updateResults.toString());
+                    // whatever the result, get based on id
+                    return getById(id);
+                }
+                return null;
+            } else {
+                return null;
+            }
+        }
+        return null;
+    }
 }

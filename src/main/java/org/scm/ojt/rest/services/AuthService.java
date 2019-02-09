@@ -95,15 +95,13 @@ public class AuthService {
             // generate a token for the user
             String token = TokenSecurity.generateJwtToken( subscriptionDTO.getId() );
 
-            //TODO : Update user subscription with new token
-//            // write the token to the database
-//            UserSecurity sec = new UserSecurity( null, token );
-//            sec.setId( id );
-//            userDao.setUserAuthentication( sec );
-
+            SubscriptionDTO updatedSubscription = subscriptionLogic.updateToken(subscriptionDTO.getId(),token);
             Map<String,Object> map = new HashMap<String,Object>();
-            map.put( AppConstants.Authentication.AUTHORIZATION_PROPERTY, token );
-
+            if (updatedSubscription != null) {
+                map.put( AppConstants.Authentication.AUTHORIZATION_PROPERTY, token );
+            } else {
+                return ResponseBuilder.createResponse( Response.Status.INTERNAL_SERVER_ERROR );
+            }
             // Return the token on the response
             return ResponseBuilder.createResponse( Response.Status.OK, map );
 
