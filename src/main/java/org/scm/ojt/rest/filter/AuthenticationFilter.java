@@ -25,8 +25,8 @@ import java.util.List;
 /**
  * Created by Yoyok_T on 29/01/2019.
  */
-@Provider
-@Priority( Priorities.AUTHENTICATION )
+//@Provider
+//@Priority( Priorities.AUTHENTICATION )
 public class AuthenticationFilter implements javax.ws.rs.container.ContainerRequestFilter {
     private static final Logger LOG = LoggerFactory.getLogger(AuthenticationFilter.class);
 
